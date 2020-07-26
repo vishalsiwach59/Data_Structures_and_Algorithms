@@ -1,0 +1,53 @@
+// https://leetcode.com/problems/partition-list/submissions/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode *left=NULL,*right=NULL,*ll=NULL,*rr=NULL;
+        while(head){
+            if(head->val<x){
+                if(left==NULL){
+                    left=head;
+                    ll=left;
+                }
+                else{
+                    ll->next=head;
+                    ll=ll->next;
+                }
+            }
+            else{
+                if(right==NULL){
+                    right=head;
+                    rr=right;
+                }
+                else{
+                    rr->next=head;
+                    rr=rr->next;
+                }              
+            }
+            head=head->next;
+        }
+        if(left){
+            ll->next=NULL;
+        }
+        if(rr){
+            rr->next=NULL;
+        }
+        if(left){
+            ll->next=right;
+        }
+        else{
+            return right;
+        }
+        return left;
+    }
+};
